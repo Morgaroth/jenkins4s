@@ -20,7 +20,7 @@ val commonSettings = Seq(
 
   // Bintray
   licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-  bintrayVcsUrl := Some("https://gitlab.com/morgaroth/op-rabbit-rpc.git"),
+  bintrayVcsUrl := Some("https://gitlab.com/morgaroth/jenkins4s"),
 )
 
 
