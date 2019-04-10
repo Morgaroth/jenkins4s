@@ -2,7 +2,8 @@ package io.morgaroth.jenkinsclient
 
 import cats.Monad
 import cats.data.EitherT
-import io.morgaroth.jenkinsclient.Methods.Get
+import io.circe.generic.auto._
+import io.morgaroth.jenkinsclient.Methods.{Get, Post}
 import io.morgaroth.jenkinsclient.marshalling.Jenkins4sMarshalling
 
 import scala.language.{higherKinds, postfixOps}
@@ -27,8 +28,11 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
     }
   }
 
-  def startJobWithParameters(jobId: String, parameters: Map[String, String]) = {
-    val trueJobName = jobIdToPath(jobId)
+  def buildJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, String] = {
+    implicit val rId: RequestId = RequestId.newOne
+    val payload = JenkinsBuildPayload(parameters.toVector)
+    val req = regGen(Post, jobIdToPath(jobId) + "/build?delay=0sec", Nil, Some(MJson.write(payload)))
+    invokeRequest(req)
   }
 
   private def jobIdToPath(jobId: String) = {
