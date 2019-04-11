@@ -38,15 +38,11 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
   }
 
 
-  private def renderBuildParam(p: BuildParam): StringBuilder = {
-    StringBuilder.newBuilder ++= encode(p.name, "utf-8") ++= "=" ++= encode(p.value, "utf-8")
-  }
-
   def buildParametrizedJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, String] = {
     implicit val rId: RequestId = RequestId.newOne
 
     val query = parameters.foldLeft(StringBuilder.newBuilder.append(jobIdToPath(jobId)).append("/buildWithParameters?")) {
-      case (b, p) => b ++= renderBuildParam(p).append("&")
+      case (b, p) => b ++= encode(p.name, "utf-8") ++= "=" ++= encode(p.value, "utf-8") ++= "&"
     }.mkString.dropRight(1)
     val req = regGen(Post, query, Nil, None)
     invokeRequest(req)
