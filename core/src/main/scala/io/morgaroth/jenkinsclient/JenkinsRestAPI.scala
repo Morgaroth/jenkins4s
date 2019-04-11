@@ -37,6 +37,13 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
     invokeRequest(req)
   }
 
+  def buildInfo(jobId: String, buildNumber: Long): EitherT[F, JenkinsError, JenkinsBuildInfo] = {
+    implicit val rId: RequestId = RequestId.newOne
+    val req = regGen(Get, jobIdToPath(jobId) + s"/$buildNumber", Nil, None)
+    invokeRequest(req).flatMap(MJson.readT[F, JenkinsBuildInfo]).map { info =>
+      info.copy(actions = info.actions.filter(_ != EmptyAction))
+    }
+  }
 
   def buildParametrizedJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, String] = {
     implicit val rId: RequestId = RequestId.newOne

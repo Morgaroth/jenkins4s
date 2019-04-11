@@ -1,0 +1,376 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.CauseAction",
+      "causes": [
+        {
+          "_class": "hudson.triggers.TimerTrigger$TimerTriggerCause",
+          "shortDescription": "Started by timer"
+        },
+        {
+          "_class": "hudson.model.Cause$UpstreamCause",
+          "shortDescription": "Started by upstream project \"deploy-jobs/Full pipeline for develop branch\" build number 835",
+          "upstreamBuild": 835,
+          "upstreamProject": "deploy-jobs/Full pipeline for develop branch",
+          "upstreamUrl": "job/deploy-jobs/job/Full%20pipeline%20for%20develop%20branch/"
+        },
+        {
+          "_class": "hudson.model.Cause$UserIdCause",
+          "shortDescription": "Started by user Jan nowak",
+          "userId": "jank",
+          "userName": "Jan nowak"
+        },
+        {
+          "_class": "com.sonyericsson.rebuild.RebuildCause",
+          "shortDescription": "Rebuilds build #8,757",
+          "upstreamBuild": 8757,
+          "upstreamProject": "main-worker",
+          "upstreamUrl": "job/main-worker/"
+        },
+        {
+          "_class": "com.sonyericsson.rebuild.RebuildCause",
+          "shortDescription": "Rebuilds build #8,918",
+          "upstreamBuild": 8918,
+          "upstreamProject": "main-worker",
+          "upstreamUrl": "job/main-worker/"
+        },
+        {
+          "_class": "com.sonyericsson.rebuild.RebuildCause",
+          "shortDescription": "Rebuilds build #8,920",
+          "upstreamBuild": 8920,
+          "upstreamProject": "main-worker",
+          "upstreamUrl": "job/main-worker/"
+        },
+        {
+          "_class": "com.sonyericsson.rebuild.RebuildCause",
+          "shortDescription": "Rebuilds build #8,923",
+          "upstreamBuild": 8923,
+          "upstreamProject": "main-worker",
+          "upstreamUrl": "job/main-worker/"
+        },
+        {
+          "_class": "com.sonyericsson.rebuild.RebuildCause",
+          "shortDescription": "Rebuilds build #9,202",
+          "upstreamBuild": 9202,
+          "upstreamProject": "main-worker",
+          "upstreamUrl": "job/main-worker/"
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.ParametersAction",
+      "parameters": [
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "KUBECONFIG",
+          "value": "/var/lib/jenkins/secrets/kube_cluster01.config"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-betting-service",
+          "value": "feature/ABCS-3844"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-trading-service",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-accounts-service",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-mailing-service",
+          "value": ""
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-notification",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-push-service",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-push-server",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-liabilities-service",
+          "value": ""
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-ansible",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-api-docs",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-bettingengine-charts",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-cassandra-library",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-bonus-service",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-backoffice",
+          "value": ""
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-tests",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-operator-configs",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-schemas",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "REPO_TAG____some-group___mj-frontend-api",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "CASSANDRA_VERSION",
+          "value": "6.7.0"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "ISTIO_ENABLED",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "DEPLOY_SCHEMAS",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "DEPLOY_OPERATOR_CONFIGS",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "DEPLOY_SERVICES",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "RUN_E2E_TESTS",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "CLEAN_NAMESPACE_AFTER",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "VOLKSWAGEN_TESTS",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SUGGESTED_NAMESPACE",
+          "value": ""
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "HELM_ADDITIONAL_INFRA_OVERRIDES",
+          "value": ""
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "HELM_ADDITIONAL_SERVICES_OVERRIDES",
+          "value": ""
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "DOCKER_IMAGES_POLICY",
+          "value": "Build if does not exist - the default"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "SFTP_ENABLED",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SFTP_HOST",
+          "value": "be-sftp.abcsttingengine.com"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "DSL_VERSION",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "POSTGRES_VERSION",
+          "value": "9.6.9-clean"
+        }
+      ]
+    },
+    {
+      "_class": "hudson.plugins.git.util.BuildDetails",
+      "build": {
+        "buildNumber": 9230,
+        "buildResult": null,
+        "marked": {
+          "SHA1": "fryghdcjxkasmdn",
+          "branch": [
+            {
+              "SHA1": "fryghdcjxkasmdn",
+              "name": "origin/develop"
+            }
+          ]
+        },
+        "revision": {
+          "SHA1": "fryghdcjxkasmdn",
+          "branch": [
+            {
+              "SHA1": "fryghdcjxkasmdn",
+              "name": "origin/develop"
+            }
+          ]
+        }
+      },
+      "remoteUrls": [
+        "https://bitbucket.org/some-group/jenkins-jobs.git"
+      ],
+      "scmName": ""
+    },
+    {
+      "_class": "hudson.plugins.git.GitTagAction"
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+      "_class": "hudson.plugins.git.util.BuildDetails",
+      "build": {
+        "buildNumber": 9230,
+        "buildResult": null,
+        "marked": {
+          "SHA1": "fryghdcjxkasmdn",
+          "branch": [
+            {
+              "SHA1": "fryghdcjxkasmdn",
+              "name": "develop"
+            }
+          ]
+        },
+        "revision": {
+          "SHA1": "fryghdcjxkasmdn",
+          "branch": [
+            {
+              "SHA1": "fryghdcjxkasmdn",
+              "name": "develop"
+            }
+          ]
+        }
+      },
+      "remoteUrls": [
+        "git@bitbucket.org:some-group/jenkins-jobs.git"
+      ],
+      "scmName": ""
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.cps.EnvActionImpl"
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {
+    },
+    {
+    },
+    {
+    }
+  ],
+  "artifacts": [
+    {
+      "displayPath": "all-config.json",
+      "fileName": "all-config.json",
+      "relativePath": "all-config.json"
+    },
+    {
+      "displayPath": "gatling-report.zip",
+      "fileName": "gatling-report.zip",
+      "relativePath": "gatling-report.zip"
+    }
+  ],
+  "building": true,
+  "description": "Started by jank<br>Locked <a href=\"env05\">env05</a> namespace.<br><br><b>mj-accounts-service</b>, <b>mj-ansible</b>, <b>mj-api-docs</b>, <b>mj-bettingengine-charts</b>, <b>mj-bonus-service</b>, <b>mj-cassandra-library</b>, <b>mj-frontend-api</b>, <b>mj-notification</b>, <b>mj-operator-configs</b>, <b>mj-pod-service</b>, <b>mj-push-server</b>, <b>mj-push-service</b>, <b>mj-schemas</b>, <b>mj-tests</b>, <b>mj-trading-service</b> will be used from last stable versions.<br><b>mj-backoffice</b>, <b>mj-betting-service</b>, <b>mj-cassandra</b>, <b>mj-liabilities-service</b>, <b>mj-mailing-service</b> will be used from feature branches.<br>",
+  "displayName": "#9230",
+  "duration": 0,
+  "estimatedDuration": 947630,
+  "executor": {
+    "_class": "hudson.model.OneOffExecutor"
+  },
+  "fullDisplayName": "Full pipeline to build, deploy and test #9230",
+  "id": "9230",
+  "keepLog": false,
+  "number": 9230,
+  "queueId": 987357,
+  "result": null,
+  "timestamp": 1555011258958,
+  "url": "https://jenkins.com/job/main-worker/9230/",
+  "changeSets": [
+  ],
+  "culprits": [
+  ],
+  "nextBuild": null,
+  "previousBuild": {
+    "number": 9229,
+    "url": "https://jenkins.com/job/main-worker/9229/"
+  }
+}
+
