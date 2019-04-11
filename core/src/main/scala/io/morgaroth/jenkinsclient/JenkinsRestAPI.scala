@@ -1,5 +1,7 @@
 package io.morgaroth.jenkinsclient
 
+import java.net.URLEncoder.encode
+
 import cats.Monad
 import cats.data.EitherT
 import io.circe.generic.auto._
@@ -32,6 +34,18 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
     implicit val rId: RequestId = RequestId.newOne
     val payload = JenkinsBuildPayload(parameters.toVector)
     val req = regGen(Post, jobIdToPath(jobId) + "/build?delay=0sec", Nil, Some(MJson.write(payload)))
+    invokeRequest(req)
+  }
+
+
+  private def renderBuildParam(p: BuildParam) = {
+    s"${encode(p.name, "utf-8")}=${encode(p.value, "utf-8")}"
+  }
+
+  def buildParametrizedJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, String] = {
+    implicit val rId: RequestId = RequestId.newOne
+    val query = parameters.map(renderBuildParam).mkString("&")
+    val req = regGen(Post, jobIdToPath(jobId) + s"/buildWithParameters?delay=0sec?$query", Nil, None)
     invokeRequest(req)
   }
 
