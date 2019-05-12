@@ -10,7 +10,7 @@ import io.morgaroth.jenkinsclient.{JenkinsError, RequestId, UnmarshallingError}
 
 import scala.language.{higherKinds, implicitConversions}
 
-trait Jenkins4sMarshalling extends JodaCodec with BuildActionDecoder {
+trait Jenkins4sMarshalling extends JodaCodec with BuildActionDecoder with JenkinsPropertyDecoder {
 
   implicit class Extractable(value: JsonObject) {
     def extract[T](implicit decoder: Decoder[T]): Either[Error, T] = decode[T](value.toString)

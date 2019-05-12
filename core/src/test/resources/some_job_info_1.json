@@ -1,0 +1,193 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+  "actions": [
+    {},
+    {},
+    {},
+    {
+      "_class": "com.cloudbees.plugins.credentials.ViewCredentialsAction"
+    }
+  ],
+  "description": "",
+  "displayName": "Full pipeline",
+  "displayNameOrNull": "Full pipeline",
+  "fullDisplayName": "Full pipeline",
+  "fullName": "some-job",
+  "name": "some-job",
+  "url": "https://alamakota.google.com/job/some-job/",
+  "buildable": true,
+  "builds": [
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11722,
+      "url": "https://alamakota.google.com/job/some-job/11722/"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11721,
+      "url": "https://alamakota.google.com/job/some-job/11721/"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11656,
+      "url": "https://alamakota.google.com/job/some-job/11656/"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11655,
+      "url": "https://alamakota.google.com/job/some-job/11655/"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11654,
+      "url": "https://alamakota.google.com/job/some-job/11654/"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11653,
+      "url": "https://alamakota.google.com/job/some-job/11653/"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11652,
+      "url": "https://alamakota.google.com/job/some-job/11652/"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 11623,
+      "url": "https://alamakota.google.com/job/some-job/11623/"
+    }
+  ],
+  "color": "red_anime",
+  "firstBuild": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 7595,
+    "url": "https://alamakota.google.com/job/some-job/7595/"
+  },
+  "healthReport": [
+    {
+      "description": "Build stability: 4 out of the last 5 builds failed.",
+      "iconClassName": "icon-health-00to19",
+      "iconUrl": "health-00to19.png",
+      "score": 20
+    }
+  ],
+  "inQueue": false,
+  "keepDependencies": false,
+  "lastBuild": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 11722,
+    "url": "https://alamakota.google.com/job/some-job/11722/"
+  },
+  "lastCompletedBuild": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 11721,
+    "url": "https://alamakota.google.com/job/some-job/11721/"
+  },
+  "lastFailedBuild": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 11721,
+    "url": "https://alamakota.google.com/job/some-job/11721/"
+  },
+  "lastStableBuild": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 11720,
+    "url": "https://alamakota.google.com/job/some-job/11720/"
+  },
+  "lastSuccessfulBuild": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 11720,
+    "url": "https://alamakota.google.com/job/some-job/11720/"
+  },
+  "lastUnstableBuild": null,
+  "lastUnsuccessfulBuild": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 11721,
+    "url": "https://alamakota.google.com/job/some-job/11721/"
+  },
+  "nextBuildNumber": 11723,
+  "property": [
+    {
+      "_class": "hudson.model.ParametersDefinitionProperty",
+      "parameterDefinitions": [
+        {
+          "_class": "hudson.model.ChoiceParameterDefinition",
+          "defaultParameterValue": {
+            "_class": "hudson.model.StringParameterValue",
+            "name": "DSADA",
+            "value": "/var/lib/jenkins/secrets/3.config"
+          },
+          "description": "vdsafees DSADA",
+          "name": "DSADA",
+          "type": "ChoiceParameterDefinition",
+          "choices": [
+            "/var/lib/jenkins/secrets/1.config",
+            "/var/lib/jenkins/secrets/2.config",
+            "/var/lib/jenkins/secrets/3.config"
+          ]
+        },
+        {
+          "_class": "hudson.model.StringParameterDefinition",
+          "defaultParameterValue": {
+            "_class": "hudson.model.StringParameterValue",
+            "name": "VER-service-1",
+            "value": "develop"
+          },
+          "description": "Service 1's branch",
+          "name": "VER-service-1",
+          "type": "StringParameterDefinition"
+        },
+        {
+          "_class": "hudson.model.StringParameterDefinition",
+          "defaultParameterValue": {
+            "_class": "hudson.model.StringParameterValue",
+            "name": "UKVGHK",
+            "value": "fdsagsfavervcdf"
+          },
+          "description": "u comma-separated list",
+          "name": "UKVGHK",
+          "type": "StringParameterDefinition"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterDefinition",
+          "defaultParameterValue": {
+            "_class": "hudson.model.BooleanParameterValue",
+            "name": "ENABLED",
+            "value": false
+          },
+          "description": "Whether",
+          "name": "ENABLED",
+          "type": "BooleanParameterDefinition"
+        },
+        {
+          "_class": "hudson.model.ChoiceParameterDefinition",
+          "defaultParameterValue": {
+            "_class": "hudson.model.StringParameterValue",
+            "name": "DOCKER_IMAGES_POLICY",
+            "value": "Build if does not exist - the default"
+          },
+          "description": "how to manage docker images",
+          "name": "DOCKER_IMAGES_POLICY",
+          "type": "ChoiceParameterDefinition",
+          "choices": [
+            "Build if does not exist - the default",
+            "Assume that docker images are built, do not even try to build them",
+            "Forcibly build even if they exists",
+            "",
+            "build",
+            "default",
+            "force rebuild",
+            "do not build",
+            "dont build"
+          ]
+        }
+      ]
+    },
+    {
+      "_class": "org.jenkinsci.plugins.envinject.EnvInjectJobProperty"
+    }
+  ],
+  "queueItem": null,
+  "concurrentBuild": true,
+  "resumeBlocked": false
+}

@@ -5,6 +5,7 @@ import cats.syntax.either._
 import io.circe.generic.auto._
 import io.circe.{Decoder, DecodingFailure}
 import io.morgaroth.jenkinsclient._
+import io.morgaroth.jenkinsclient.models.{BuildCause, RebuildCause, TriggerCause, UpsteamCause, UserIdCause}
 
 trait BuildCauseDecoder {
 

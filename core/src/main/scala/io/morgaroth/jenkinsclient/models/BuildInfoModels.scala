@@ -1,4 +1,4 @@
-package io.morgaroth.jenkinsclient
+package io.morgaroth.jenkinsclient.models
 
 import io.circe.syntax.EncoderOps
 import io.circe.{Encoder, Printer}

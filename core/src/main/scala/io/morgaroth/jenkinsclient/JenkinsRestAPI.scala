@@ -7,6 +7,7 @@ import cats.data.EitherT
 import io.circe.generic.auto._
 import io.morgaroth.jenkinsclient.Methods.{Get, Post}
 import io.morgaroth.jenkinsclient.marshalling.Jenkins4sMarshalling
+import io.morgaroth.jenkinsclient.models._
 
 import scala.language.{higherKinds, postfixOps}
 
@@ -37,9 +38,17 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
     invokeRequest(req)
   }
 
+  def buildInfo(jobId: String, buildSymbolic: BuildSymbolic): EitherT[F, JenkinsError, JenkinsBuildInfo] = {
+    buildInfo(jobId, buildSymbolic.str)
+  }
+
   def buildInfo(jobId: String, buildNumber: Long): EitherT[F, JenkinsError, JenkinsBuildInfo] = {
+    buildInfo(jobId, buildNumber.toString)
+  }
+
+  def buildInfo(jobId: String, build: String): EitherT[F, JenkinsError, JenkinsBuildInfo] = {
     implicit val rId: RequestId = RequestId.newOne
-    val req = regGen(Get, jobIdToPath(jobId) + s"/$buildNumber", Nil, None)
+    val req = regGen(Get, jobIdToPath(jobId) + s"/$build/api/json", Nil, None)
     invokeRequest(req).flatMap(MJson.readT[F, JenkinsBuildInfo]).map { info =>
       info.copy(actions = info.actions.filter(_ != EmptyAction))
     }
@@ -53,6 +62,12 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
     }.mkString.dropRight(1)
     val req = regGen(Post, query, Nil, None)
     invokeRequest(req)
+  }
+
+  def jobInfo(jobId: String): EitherT[F, JenkinsError, JenkinsJobInfo] = {
+    implicit val rId: RequestId = RequestId.newOne
+    val req = regGen(Get, jobIdToPath(jobId) + "/api/json", Nil, None)
+    invokeRequest(req).flatMap(MJson.readT[F, JenkinsJobInfo])
   }
 
   private def jobIdToPath(jobId: String) = {

@@ -3,7 +3,7 @@ package io.morgaroth.jenkinsclient.marshalling
 import cats.syntax.either._
 import io.circe.generic.auto._
 import io.circe.{Decoder, DecodingFailure}
-import io.morgaroth.jenkinsclient.{BoolParameterEntry, ParameterActionEntry, StringParameterEntry}
+import io.morgaroth.jenkinsclient.models.{BoolParameterEntry, ParameterActionEntry, StringParameterEntry}
 
 trait BuildParameterDecoder {
 
