@@ -1,0 +1,93 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.ParametersAction",
+      "parameters": [
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "branch",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "DEPLOY_SERVICES",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "dada",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "INFRA_OVERRIDES",
+          "value": ""
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "DOCKER_IMAGES_POLICY",
+          "value": "Build if does not exist - the default"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "SFTP_ENABLED",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "DSL_VERSION",
+          "value": "develop"
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.CauseAction",
+      "causes": [
+        {
+          "_class": "hudson.model.Cause$UserIdCause",
+          "shortDescription": "Started by user jan.nowak",
+          "userId": "jan.nowak",
+          "userName": "jan.nowak"
+        }
+      ]
+    },
+    {},
+    {},
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {},
+    {},
+    {}
+  ],
+  "artifacts": [],
+  "building": true,
+  "description": null,
+  "displayName": "#11975",
+  "duration": 0,
+  "estimatedDuration": 1498610,
+  "executor": {
+    "_class": "hudson.model.OneOffExecutor"
+  },
+  "fullDisplayName": "Full pipe#11975",
+  "id": "11975",
+  "keepLog": false,
+  "number": 11975,
+  "queueId": 1190533,
+  "result": null,
+  "timestamp": 1557942688710,
+  "url": "https://google.com/job/job/11975/",
+  "changeSets": [],
+  "culprits": [],
+  "nextBuild": null,
+  "previousBuild": {
+    "number": 11974,
+    "url": "https://google.com/job/job/11974/"
+  }
+}

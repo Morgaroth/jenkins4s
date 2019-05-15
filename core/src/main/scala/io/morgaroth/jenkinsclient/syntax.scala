@@ -43,3 +43,8 @@ case class JenkinsRequest(
 object JenkinsRequest {
   def forServer(cfg: JenkinsConfig): (Method, String, List[JenkinsQuery], Option[String]) => JenkinsRequest = new JenkinsRequest(cfg.address, cfg.getBasicAuthHeaderValue, _, _, _, _)
 }
+
+case class JenkinsResponse(
+                            headers: Map[String, String],
+                            payload: String,
+                          )

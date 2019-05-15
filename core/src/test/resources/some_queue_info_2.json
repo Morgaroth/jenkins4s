@@ -1,0 +1,51 @@
+{
+  "_class": "hudson.model.Queue$LeftItem",
+  "actions": [
+    {
+      "_class": "hudson.model.ParametersAction",
+      "parameters": [
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "branch",
+          "value": "develop"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "boolparam",
+          "value": true
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.CauseAction",
+      "causes": [
+        {
+          "_class": "hudson.model.Cause$UserIdCause",
+          "shortDescription": "Started by user jan.nowak",
+          "userId": "jan.nowak",
+          "userName": "jan.nowak"
+        }
+      ]
+    }
+  ],
+  "blocked": false,
+  "buildable": false,
+  "id": 1190771,
+  "inQueueSince": 1557945050330,
+  "params": "\nKUBECONFop",
+  "stuck": false,
+  "task": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+    "name": "madsadsa",
+    "url": "https:///job-worker/",
+    "color": "red_anime"
+  },
+  "url": "queue/item/1190771/",
+  "why": null,
+  "cancelled": false,
+  "executable": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "number": 11980,
+    "url": "https://jenkins-krk.whbettingengine.com/job/main-worker/11980/"
+  }
+}

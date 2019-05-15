@@ -19,7 +19,7 @@ class SttpJenkinsAPI(val config: JenkinsConfig, apiConfig: JenkinsAPIConfig)(imp
   implicit val backend: SttpBackend[Try, Nothing] = TryHttpURLConnectionBackend()
   private val requestsLogger = Logger(LoggerFactory.getLogger(getClass.getPackage.getName + ".requests"))
 
-  override def invokeRequest(requestData: JenkinsRequest)(implicit requestId: RequestId): EitherT[Future, JenkinsError, String] = {
+  override def invokeRequest(requestData: JenkinsRequest)(implicit requestId: RequestId): EitherT[Future, JenkinsError, JenkinsResponse] = {
     val u = requestData.render
     val requestWithoutPayload = sttp.method(requestData.method, uri"$u").headers(
       "Authorization" -> requestData.authToken,
@@ -40,10 +40,12 @@ class SttpJenkinsAPI(val config: JenkinsConfig, apiConfig: JenkinsAPIConfig)(imp
       .flatMap { response =>
         if (apiConfig.debug) logger.debug(s"received response: $response")
         requestsLogger.info(s"Response ID {}, response: {}, payload:\n{}", requestId.id, response.copy(rawErrorBody = Right("stripped")), response.body.fold(identity, identity))
-        response.rawErrorBody.leftMap(error => HttpError(response.code.intValue(), "http-response-error", requestId.id, Some(new String(error, "UTF-8"))))
+        response
+          .rawErrorBody
+          .leftMap(error => HttpError(response.code.intValue(), "http-response-error", requestId.id, Some(new String(error, "UTF-8"))))
+          .map(body => JenkinsResponse(response.headers.toMap, body))
       }
 
-    EitherT.fromEither(response)
+    EitherT.fromEither[Future](response)
   }
-
 }

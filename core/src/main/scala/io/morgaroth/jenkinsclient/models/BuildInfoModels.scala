@@ -14,86 +14,6 @@ case class JenkinsBuildPayload(parameter: Vector[BuildParam])
 
 case class BuildRef(number: Long, url: String)
 
-trait BuildAction {
-  def _class: String
-}
-
-case object EmptyAction extends BuildAction {
-  val _class = "empty"
-}
-
-case class CauseAction(
-                        _class: String,
-                        causes: Vector[BuildCause]
-                      ) extends BuildAction
-
-trait BuildCause {
-  def _class: String
-}
-
-case class UserIdCause(
-                        _class: String,
-                        shortDescription: String,
-                        userId: String,
-                        userName: String,
-                      ) extends BuildCause
-
-case class TriggerCause(
-                         _class: String,
-                         shortDescription: String,
-                       ) extends BuildCause
-
-case class UpsteamCause(
-                         _class: String,
-                         shortDescription: String,
-                         upstreamBuild: Long,
-                         upstreamProject: String,
-                         upstreamUrl: String,
-                       ) extends BuildCause
-
-case class RebuildCause(
-                         _class: String,
-                         shortDescription: String,
-                         upstreamBuild: Long,
-                         upstreamProject: String,
-                         upstreamUrl: String,
-                       ) extends BuildCause
-
-case class ParametersAction(
-                             _class: String,
-                             parameters: Vector[ParameterActionEntry]
-                           ) extends BuildAction
-
-trait ParameterActionEntry {
-  def _class: String
-
-  def name: String
-}
-
-case class StringParameterEntry(_class: String,
-                                name: String,
-                                value: String
-                               ) extends ParameterActionEntry
-
-case class BoolParameterEntry(
-                               _class: String,
-                               name: String,
-                               value: Boolean
-                             ) extends ParameterActionEntry
-
-
-case class JenkinsBuildDetails(
-                                buildNumber: Long,
-                                buildResult: Option[String],
-                              )
-
-case class JenkinsBuildDetailsBox(
-                                   _class: String,
-                                   build: JenkinsBuildDetails,
-                                 ) extends BuildAction
-
-case class NotImportantAction(_class: String) extends BuildAction
-
 case class BuildArtifact(
                           displayPath: String,
                           fileName: String,
@@ -110,7 +30,7 @@ case class JenkinsBuildInfo(
                              number: Long,
                              duration: Long,
                              building: Boolean,
-                             description: String,
+                             description: Option[String],
                              timestamp: Long,
                              previousBuild: Option[BuildRef],
                              nextBuild: Option[BuildRef],

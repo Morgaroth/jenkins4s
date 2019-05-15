@@ -1,0 +1,46 @@
+{
+  "_class": "hudson.model.Queue$WaitingItem",
+  "actions": [
+    {
+      "_class": "hudson.model.ParametersAction",
+      "parameters": [
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "ENABLED",
+          "value": true
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "dsadsa",
+          "value": "be-"
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.CauseAction",
+      "causes": [
+        {
+          "_class": "hudson.model.Cause$UserIdCause",
+          "shortDescription": "Started by user jan.nowak",
+          "userId": "jan.nowak",
+          "userName": "jan.nowak"
+        }
+      ]
+    }
+  ],
+  "blocked": false,
+  "buildable": false,
+  "id": 1190771,
+  "inQueueSince": 1557945050330,
+  "params": "\nKUBECONFlop",
+  "stuck": false,
+  "task": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+    "name": "mair",
+    "url": "https:///",
+    "color": "red_anime"
+  },
+  "url": "queue/item/1190771/",
+  "why": "In the quiet period. Expires in 3.7 sec",
+  "timestamp": 1557945060330
+}
