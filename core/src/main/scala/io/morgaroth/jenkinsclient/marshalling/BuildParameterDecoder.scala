@@ -3,7 +3,7 @@ package io.morgaroth.jenkinsclient.marshalling
 import cats.syntax.either._
 import io.circe.generic.auto._
 import io.circe.{Decoder, DecodingFailure}
-import io.morgaroth.jenkinsclient.models.{BoolParameterEntry, ParameterActionEntry, StringParameterEntry}
+import io.morgaroth.jenkinsclient.models.{BoolParameterEntry, ParameterActionEntry, StringParameterEntry, TextParameterEntry}
 
 trait BuildParameterDecoder {
 
@@ -12,6 +12,8 @@ trait BuildParameterDecoder {
     classField.focus.map[Decoder.Result[ParameterActionEntry]] {
       case stringParam if stringParam.asString.contains("hudson.model.StringParameterValue") =>
         cursor.as[StringParameterEntry]
+      case textParam if textParam.asString.contains("hudson.model.TextParameterValue") =>
+        cursor.as[TextParameterEntry]
       case boolParam if boolParam.asString.contains("hudson.model.BooleanParameterValue") =>
         cursor.as[BoolParameterEntry]
       case unknown =>

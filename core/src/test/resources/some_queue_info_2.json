@@ -10,6 +10,11 @@
           "value": "develop"
         },
         {
+          "_class": "hudson.model.TextParameterValue",
+          "name": "BRANCHES",
+          "value": "{\"service1\":\"feature/ala ma kota\"}"
+        },
+        {
           "_class": "hudson.model.BooleanParameterValue",
           "name": "boolparam",
           "value": true

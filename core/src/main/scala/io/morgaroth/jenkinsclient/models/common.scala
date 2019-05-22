@@ -73,6 +73,11 @@ case class StringParameterEntry(_class: String,
                                 value: String
                                ) extends ParameterActionEntry
 
+case class TextParameterEntry(_class: String,
+                                name: String,
+                                value: String
+                               ) extends ParameterActionEntry
+
 case class BoolParameterEntry(
                                _class: String,
                                name: String,
