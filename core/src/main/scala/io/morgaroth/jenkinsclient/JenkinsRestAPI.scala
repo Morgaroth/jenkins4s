@@ -23,7 +23,7 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
 
   def checkIfJobExists(jobId: String): EitherT[F, JenkinsError, Boolean] = {
     implicit val rId: RequestId = RequestId.newOne
-    val req = regGen(Get, jobIdToPath(jobId), Nil, None)
+    val req = regGen(Get, jobIdToPath(jobId), Nil, NoPayload)
     invokeRequest(req).map(_ => true).recover {
       case err =>
         println(err)
@@ -31,11 +31,18 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
     }
   }
 
-  def buildJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, String] = {
+  def buildJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, JenkinsQueuedBuildInfo] = {
     implicit val rId: RequestId = RequestId.newOne
     val payload = JenkinsBuildPayload(parameters.toVector)
-    val req = regGen(Post, jobIdToPath(jobId) + "/build?delay=0sec", Nil, Some(MJson.write(payload)))
-    invokeRequest(req).map(_.payload)
+    val req = regGen(Post, jobIdToPath(jobId) + "/build", Nil, Form(Map("json" -> MJson.write(payload))))
+
+    for {
+      url <- invokeRequest(req).flatMap(resp => EitherT.fromOption(resp.headers.get("Location"), CustomJenkinsError(s"No Location header among ${resp.headers}")))
+      queue <- globalQueueInfo()
+      thisJobsQueueItems = queue.items.filter(_.task.url == url)
+      notSoLot <- EitherT.cond(thisJobsQueueItems.size <= 1, thisJobsQueueItems.headOption, CustomJenkinsError(s"more than one ticket for job $url! needs further investigating"))
+      exactOne <- EitherT.fromOption(notSoLot, CustomJenkinsError(s"missing queue item for $url"))
+    } yield JenkinsQueuedBuildInfo(exactOne.id, exactOne.url)
   }
 
   def buildInfo(jobId: String, buildSymbolic: BuildSymbolic): EitherT[F, JenkinsError, JenkinsBuildInfo] = {
@@ -48,7 +55,7 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
 
   def buildInfo(jobId: String, build: String): EitherT[F, JenkinsError, JenkinsBuildInfo] = {
     implicit val rId: RequestId = RequestId.newOne
-    val req = regGen(Get, jobIdToPath(jobId) + s"/$build/api/json", Nil, None)
+    val req = regGen(Get, jobIdToPath(jobId) + s"/$build/api/json", Nil, NoPayload)
     invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsBuildInfo]).map { info =>
       info.copy(actions = info.actions.filter(_ != EmptyAction))
     }
@@ -60,7 +67,7 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
     val query = parameters.foldLeft(StringBuilder.newBuilder.append(jobIdToPath(jobId)).append("/buildWithParameters?")) {
       case (b, p) => b ++= encode(p.name, "utf-8") ++= "=" ++= encode(p.value, "utf-8") ++= "&"
     }.mkString.dropRight(1)
-    val req = regGen(Post, query, Nil, None)
+    val req = regGen(Post, query, Nil, NoPayload)
     invokeRequest(req).map { resp =>
       val url = resp.headers("Location")
       JenkinsQueuedBuildInfo(url.split("/").filter(_.nonEmpty).last.toLong, url)
@@ -69,14 +76,20 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
 
   def jobInfo(jobId: String): EitherT[F, JenkinsError, JenkinsJobInfo] = {
     implicit val rId: RequestId = RequestId.newOne
-    val req = regGen(Get, jobIdToPath(jobId) + "/api/json", Nil, None)
+    val req = regGen(Get, jobIdToPath(jobId) + "/api/json", Nil, NoPayload)
     invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsJobInfo])
   }
 
-  def queueInfo(queueId: Long): EitherT[F, JenkinsError, JenkinsQueueInfo] = {
+  def queueTicketInfo(queueId: Long): EitherT[F, JenkinsError, JenkinsQueueItemInfo] = {
     implicit val rId: RequestId = RequestId.newOne
-    val req = regGen(Get, s"queue/item/$queueId/api/json", Nil, None)
-    invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsQueueInfo])
+    val req = regGen(Get, s"queue/item/$queueId/api/json", Nil, NoPayload)
+    invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsQueueItemInfo])
+  }
+
+  def globalQueueInfo(): EitherT[F, JenkinsError, JenkinsGlobalQueue] = {
+    implicit val rId: RequestId = RequestId.newOne
+    val req = regGen(Get, s"queue/api/json", Nil, NoPayload)
+    invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsGlobalQueue])
   }
 
   private def jobIdToPath(jobId: String) = {
