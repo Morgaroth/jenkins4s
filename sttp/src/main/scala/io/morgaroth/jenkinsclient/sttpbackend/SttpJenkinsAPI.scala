@@ -25,11 +25,13 @@ class SttpJenkinsAPI(val config: JenkinsConfig, apiConfig: JenkinsAPIConfig)(imp
       "Authorization" -> requestData.authToken,
       "Accept" -> "application/json",
       "User-Agent" -> "curl/7.61.0",
-    )
+    ).followRedirects(false)
 
-    val request = requestData.payload.map { rawPayload =>
-      requestWithoutPayload.body(rawPayload).contentType("application/json")
-    }.getOrElse(requestWithoutPayload)
+    val request = requestData.payload match {
+      case NoPayload => requestWithoutPayload
+      case JsonString(serializedJson) => requestWithoutPayload.body(serializedJson).contentType("application/json")
+      case Form(data) => requestWithoutPayload.body(data)
+    }
 
     if (apiConfig.debug) logger.debug(s"request to send: $request")
     requestsLogger.info(s"Request ID {}, request: {}, payload:\n{}", requestId.id, request.body("stripped"), request.body)
@@ -43,7 +45,12 @@ class SttpJenkinsAPI(val config: JenkinsConfig, apiConfig: JenkinsAPIConfig)(imp
         response
           .rawErrorBody
           .leftMap(error => HttpError(response.code.intValue(), "http-response-error", requestId.id, Some(new String(error, "UTF-8"))))
-          .map(body => JenkinsResponse(response.headers.toMap, body))
+          .map(body => JenkinsResponse(response.code.intValue(), response.headers.toMap, body))
+          .recover {
+            case HttpError(302, _, _, Some(data)) =>
+              JenkinsResponse(302, response.headers.toMap, data)
+          }
+
       }
 
     EitherT.fromEither[Future](response)

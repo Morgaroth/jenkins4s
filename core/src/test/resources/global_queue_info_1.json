@@ -1,0 +1,52 @@
+{
+  "_class": "hudson.model.Queue",
+  "discoverableItems": [],
+  "items": [
+    {
+      "_class": "hudson.model.Queue$WaitingItem",
+      "actions": [
+        {
+          "_class": "hudson.model.ParametersAction",
+          "parameters": [
+            {
+              "_class": "hudson.model.TextParameterValue",
+              "name": "DSL_PAYLOAD",
+              "value": "import com.w"
+            },
+            {
+              "_class": "hudson.model.StringParameterValue",
+              "name": "PROCESSOR_DSL_VERSION",
+              "value": "feature/g"
+            }
+          ]
+        },
+        {
+          "_class": "hudson.model.CauseAction",
+          "causes": [
+            {
+              "_class": "hudson.model.Cause$UserIdCause",
+              "shortDescription": "Started by user jan.nowak",
+              "userId": "jan.nowak",
+              "userName": "jan.nowak"
+            }
+          ]
+        }
+      ],
+      "blocked": false,
+      "buildable": false,
+      "id": 416662,
+      "inQueueSince": 1566289237672,
+      "params": "\nDSL_PAYLting",
+      "stuck": false,
+      "task": {
+        "_class": "hudson.model.FreeStyleProject",
+        "name": "custom-jobs-processor",
+        "url": "https://jenkins.local/job/internal/job/custom-jobs-processor/",
+        "color": "blue"
+      },
+      "url": "queue/item/416662/",
+      "why": "In the quiet period. Expires in 0.86 sec",
+      "timestamp": 1566289238672
+    }
+  ]
+}

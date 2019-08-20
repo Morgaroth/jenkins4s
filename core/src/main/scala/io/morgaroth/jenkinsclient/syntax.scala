@@ -24,13 +24,21 @@ object Methods {
 
 }
 
+trait Payload
+
+case object NoPayload extends Payload
+
+case class JsonString(serializedJson: String) extends Payload
+
+case class Form(data: Map[String, String]) extends Payload
+
 case class JenkinsRequest(
                            service: String,
                            authToken: String,
                            method: Method,
                            path: String,
                            query: List[JenkinsQuery],
-                           payload: Option[String],
+                           payload: Payload,
                          ) {
   lazy val render: String = {
     val base = s"$service/$path"
@@ -41,10 +49,11 @@ case class JenkinsRequest(
 }
 
 object JenkinsRequest {
-  def forServer(cfg: JenkinsConfig): (Method, String, List[JenkinsQuery], Option[String]) => JenkinsRequest = new JenkinsRequest(cfg.address, cfg.getBasicAuthHeaderValue, _, _, _, _)
+  def forServer(cfg: JenkinsConfig): (Method, String, List[JenkinsQuery], Payload) => JenkinsRequest = new JenkinsRequest(cfg.address, cfg.getBasicAuthHeaderValue, _, _, _, _)
 }
 
 case class JenkinsResponse(
+                            code: Int,
                             headers: Map[String, String],
                             payload: String,
                           )
