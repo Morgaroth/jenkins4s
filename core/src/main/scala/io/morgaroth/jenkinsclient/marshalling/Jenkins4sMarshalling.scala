@@ -22,9 +22,9 @@ trait Jenkins4sMarshalling extends JodaCodec with BuildActionDecoder with Jenkin
     def readT[F[_], T](str: String)(implicit d: Decoder[T], m: Monad[F], requestId: RequestId): EitherT[F, JenkinsError, T] =
       EitherT.fromEither(read[T](str).leftMap[JenkinsError](e => UnmarshallingError(e.getMessage, requestId.id, e)))
 
-    def write[T](value: T)(implicit d: Encoder[T]): String = Printer.noSpaces.copy(dropNullValues = true).pretty(value.asJson)
+    def write[T](value: T)(implicit d: Encoder[T]): String = Printer.noSpaces.copy(dropNullValues = true).print(value.asJson)
 
-    def writePretty[T](value: T)(implicit d: Encoder[T]): String = printer.pretty(value.asJson)
+    def writePretty[T](value: T)(implicit d: Encoder[T]): String = printer.print(value.asJson)
   }
 
   // keep all special settings with method write above

@@ -22,7 +22,7 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
   protected def invokeRequest(request: JenkinsRequest)(implicit requestId: RequestId): EitherT[F, JenkinsError, JenkinsResponse]
 
   def checkIfJobExists(jobId: String): EitherT[F, JenkinsError, Boolean] = {
-    implicit val rId: RequestId = RequestId.newOne
+    implicit val rId: RequestId = RequestId.newOne("check-job-exists")
     val req = regGen(Get, jobIdToPath(jobId), Nil, NoPayload)
     invokeRequest(req).map(_ => true).recover {
       case err =>
@@ -32,7 +32,7 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
   }
 
   def buildJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, JenkinsQueuedBuildInfo] = {
-    implicit val rId: RequestId = RequestId.newOne
+    implicit val rId: RequestId = RequestId.newOne("build-job")
     val payload = JenkinsBuildPayload(parameters.toVector)
     val req = regGen(Post, jobIdToPath(jobId) + "/build", Nil, Form(Map("json" -> MJson.write(payload))))
 
@@ -54,7 +54,7 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
   }
 
   def buildInfo(jobId: String, build: String): EitherT[F, JenkinsError, JenkinsBuildInfo] = {
-    implicit val rId: RequestId = RequestId.newOne
+    implicit val rId: RequestId = RequestId.newOne("build-info")
     val req = regGen(Get, jobIdToPath(jobId) + s"/$build/api/json", Nil, NoPayload)
     invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsBuildInfo]).map { info =>
       info.copy(actions = info.actions.filter(_ != EmptyAction))
@@ -62,9 +62,9 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
   }
 
   def buildParametrizedJob(jobId: String, parameters: Iterable[BuildParam]): EitherT[F, JenkinsError, JenkinsQueuedBuildInfo] = {
-    implicit val rId: RequestId = RequestId.newOne
+    implicit val rId: RequestId = RequestId.newOne("build-parametrized-job")
 
-    val query = parameters.foldLeft(StringBuilder.newBuilder.append(jobIdToPath(jobId)).append("/buildWithParameters?")) {
+    val query = parameters.foldLeft(new StringBuilder().append(jobIdToPath(jobId)).append("/buildWithParameters?")) {
       case (b, p) => b ++= encode(p.name, "utf-8") ++= "=" ++= encode(p.value, "utf-8") ++= "&"
     }.mkString.dropRight(1)
     val req = regGen(Post, query, Nil, NoPayload)
@@ -75,19 +75,19 @@ trait JenkinsRestAPI[F[_]] extends Jenkins4sMarshalling {
   }
 
   def jobInfo(jobId: String): EitherT[F, JenkinsError, JenkinsJobInfo] = {
-    implicit val rId: RequestId = RequestId.newOne
+    implicit val rId: RequestId = RequestId.newOne("job-info")
     val req = regGen(Get, jobIdToPath(jobId) + "/api/json", Nil, NoPayload)
     invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsJobInfo])
   }
 
   def queueTicketInfo(queueId: Long): EitherT[F, JenkinsError, JenkinsQueueItemInfo] = {
-    implicit val rId: RequestId = RequestId.newOne
+    implicit val rId: RequestId = RequestId.newOne("queue-ticket-info")
     val req = regGen(Get, s"queue/item/$queueId/api/json", Nil, NoPayload)
     invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsQueueItemInfo])
   }
 
   def globalQueueInfo(): EitherT[F, JenkinsError, JenkinsGlobalQueue] = {
-    implicit val rId: RequestId = RequestId.newOne
+    implicit val rId: RequestId = RequestId.newOne("global-queue-info")
     val req = regGen(Get, s"queue/api/json", Nil, NoPayload)
     invokeRequest(req).map(_.payload).flatMap(MJson.readT[F, JenkinsGlobalQueue])
   }

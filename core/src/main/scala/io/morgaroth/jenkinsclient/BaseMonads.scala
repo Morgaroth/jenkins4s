@@ -4,7 +4,7 @@ trait JenkinsError
 
 case class RequestingError(description: String, requestId: String, cause: Throwable) extends JenkinsError
 
-case class HttpError(statusCode: Int, description: String, requestId: String, errorBody: Option[String]) extends JenkinsError
+case class JenkinsHttpError(statusCode: Int, description: String, requestId: String, requestType: String, errorBody: Option[String]) extends JenkinsError
 
 case class MarshallingError(description: String, requestId: String, cause: Throwable) extends JenkinsError
 

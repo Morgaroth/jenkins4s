@@ -22,7 +22,7 @@ before_script:
 tests:
   stage: validate
   script:
-    - sbt -ivy $PWD/.ivy2 -sbt-dir $PWD/.sbt validate
+    - sbt -ivy $PWD/.ivy2 -sbt-dir $PWD/.sbt +validate
 
 release:
   stage: publish
